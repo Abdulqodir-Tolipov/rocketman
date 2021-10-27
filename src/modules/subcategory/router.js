@@ -3,6 +3,6 @@ const controller = require("./controller")
 
 router.route("/subcategory")
     .get(controller.get)
-    .post(controller.post)
+    .post(controller.post);
 
 module.exports = router
