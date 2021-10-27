@@ -45,7 +45,7 @@ module.exports = {
         try {
             return res.json(await fetch(get))
         } catch (error) {
-            throw error
+            throw error;
         }
     },
 
