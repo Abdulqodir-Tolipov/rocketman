@@ -1,4 +1,5 @@
 const { Pool } = require("pg")
+const path  = require("path")
 const {pgConfig} = require("../config")
 const pool = new Pool(pgConfig)
 
