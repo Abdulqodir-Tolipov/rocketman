@@ -10,12 +10,31 @@ insert into category(category_name, category_status) values ($1, $2)`
 
 
 const put =
-    `update  category 
-    set 
-        category_name = $2,
-        category_status = $3
-    where category_id = $1 
-    returning * `
+    `
+    with old_data as(
+        select
+        category_id,
+        category_name,
+        category_status
+        from category
+        where category_id = $1
+    ) update category set
+        category_name = (
+            case
+                when length($2) > 1 THEN $2
+                else old_data.category_name
+            end
+        ),
+        category_status = (
+            case
+                when $3 <> old_data.category_status THEN $3
+                else old_data.category_status
+            end
+        )
+    from old_data
+    where category.category_id = $1
+    returning *
+    `
 
 
 const delet = `
