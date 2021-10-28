@@ -12,5 +12,3 @@ server.use(router)
 server.listen(2002, () => {
     console.log(2002);
 })
-
-console.log('hello')
