@@ -14,7 +14,7 @@ module.exports = {
             }
         } catch (error) {
             return res.status(403).json({
-                status: 403,
+                stgit@github.com:Abdulqodir-Tolipov/rocketman.gitatus: 403,
                 message: "Something wrong..."
             })
         }

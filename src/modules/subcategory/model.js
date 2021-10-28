@@ -49,7 +49,7 @@ const put = ` with old_data as(
                 ),
                 subcategory_isActive = (
                     case
-                        when $6 <> old_data.subcategory_isActive  THEN $6
+                        when $6 <> old_data.subcategory_isActive and $8  THEN $6
                         else old_data.subcategory_isActive
                     end
                 ),
@@ -89,7 +89,10 @@ module.exports = {
     },
     put: async ({ subcategory_id, subcategory_name = ' ', subcategory_goods = 0, subcategory_phone = ' ', subcategory_address = ' ', subcategory_isActive, category_id = 0 }) => {
         try {
-            return await fetch(put, subcategory_id, subcategory_name, subcategory_goods, subcategory_phone, subcategory_address, subcategory_isActive, category_id)
+            if(subcategory_isActive == undefined){
+                return await fetch(put, subcategory_id, subcategory_name, subcategory_goods, subcategory_phone, subcategory_address, subcategory_isActive, category_id,false)
+            }
+            return await fetch(put, subcategory_id, subcategory_name, subcategory_goods, subcategory_phone, subcategory_address, subcategory_isActive, category_id,true)
         } catch (error) {
 
         }
