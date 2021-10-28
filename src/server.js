@@ -4,7 +4,6 @@ const router = require("./modules/index.js")
 
 const server = express()
 
-// middlewares
 server.use(express.json())
 server.use(router)
 
@@ -12,3 +11,7 @@ server.use(router)
 server.listen(2002, () => {
     console.log(2002);
 })
+<<<<<<< HEAD
+=======
+
+>>>>>>> f3678d3e6eb8491deffb3b8d705235174faea865
