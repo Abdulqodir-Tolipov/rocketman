@@ -84,7 +84,7 @@ module.exports = {
     },
     put: async ({ subcategory_id, subcategory_name, subcategory_goods, subcategory_phone, subcategory_address, subcategory_isActive, category_id }) => {
         try {
-            return await fetch(put, subcategory_id, subcategory_name, subcategory_goods, subcategory_phone, subcategory_address, subcategory_isActive, category_id)
+            return await fetch(put, subcategory_name, subcategory_goods, subcategory_phone, subcategory_address, subcategory_isActive, category_id)
         } catch (error) {
 
         }
