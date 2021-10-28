@@ -1,21 +1,11 @@
 const adminRouter = require('./admin/router.js')
 const categoryRouter = require('./category/router.js')
-<<<<<<< HEAD
-const loginRouter = require('./login/router.js')
-// const subCategoryRouter = require('./subCategory/router.js')
-
-module.exports = [
-    adminRouter,
-    categoryRouter,
-    loginRouter
-    // subCategoryRouter
-]  
-=======
+const loginRouter = require('./login/router.js') 
 const subcategoryRouter = require('./subcategory/router.js')
 
 module.exports = [
     adminRouter,
-    categoryRouter
+    categoryRouter,
+    loginRouter,
     subcategoryRouter
-]
->>>>>>> f3678d3e6eb8491deffb3b8d705235174faea865
+]  
