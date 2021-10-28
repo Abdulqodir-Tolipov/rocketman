@@ -38,7 +38,7 @@ module.exports = {
             if (category) {
                 res.json({
                     status: 200,
-                    message: "The category deleted...",
+                    message: "The subcategory deleted...",
                     data: category
                 })
             } else throw new Error("There is an error")
