@@ -20,7 +20,7 @@ const login = async (req, res) => {
 
 
         const logged = await model.login(req.body)
-        if (logged) {
+        if (logged && logged.status != 'not active') {
             const token = jwt.sign(logged.status)
             res.cookie('token', token)
             res.status(200).json({
