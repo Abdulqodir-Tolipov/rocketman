@@ -6,13 +6,14 @@ const validateCookies = require("./middlewares/checkToken.js");
 const adminRouter = require("./routes/v1/admin.js");
 const loginRouter = require("./routes/v1/login.js");
 const categoryRouter = require("./routes/v1/categories.js");
-
+const subProducts = require("./routes/v1/subproducts.js")
 const app = express();
 
 app.use(express.json());
 app.use(cookie());
 app.use(validateCookies);
 app.use(adminRouter);
+app.use(subProducts)
 app.use(loginRouter)
 app.use(categoryRouter)
 

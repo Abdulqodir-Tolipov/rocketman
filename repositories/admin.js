@@ -9,7 +9,7 @@ const get = async () => {
             from    
                 admins
             where status <> 'not active'
-        `;
+        `; 
 
         const result = await db(false, GET_ADMIN);
         return result;
