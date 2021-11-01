@@ -24,13 +24,18 @@ const POST = async (req, res) => {
                 .send(validationResult.error.details[0].message);
         }
 
-        const data = await model.post(req.body);
+        const isAdmin = jwt.verify(req.cookies.token)
+        if (isAdmin == 'superadmin') {
+        
+            const data = await model.post(req.body);
 
-        return res.status(200).json({
-            status: 200,
-            message: "The new admin is added!",
-            data
-        });
+            return res.status(200).json({
+                status: 200,
+                message: "The new admin is added!",
+                data
+        
+            })
+        } else throw new Error("You are not superuser!")
 
     } catch (error) {
         res.status(400).json({
