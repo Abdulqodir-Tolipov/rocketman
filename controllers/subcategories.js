@@ -2,11 +2,9 @@ const model = require('../repositories/subcategories.js')
 const validations = require('../validation/subcategories.js')
 
 const GET = async (req, res) => {
-    
     const subcategories = await model.get()
-    console.log(subcategories);
     if(subcategories){
-        res.status(200).json(subcategories||'bosh')
+        res.status(200).json(subcategories)
     }
 }
 
@@ -32,7 +30,7 @@ const POST = async (req, res) => {
 
         return res.status(200).json({
             status: 200,
-            message: 'The new post',
+            message: 'The new subcategory is added',
             data
         })
     } catch (error) {
@@ -63,7 +61,7 @@ const PUT = async (req, res) => {
 
         return res.status(200).json({
             status: 200,
-            message: 'The post updated',
+            message: 'The subcategory is updated',
             data
         })
     } catch (error) {
@@ -92,7 +90,7 @@ const DELETE = async (req, res) => {
 
         return res.status(200).json({
             status: 200,
-            message: 'The Subcategories deleted',
+            message: 'The subcategory is deleted',
             data
         })
     } catch (error) {

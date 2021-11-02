@@ -1,5 +1,6 @@
 const router = require("express").Router()
 const controller = require("../../controllers/subcategories.js")
+
 router.route('/subcategories')
     .get(controller.GET)
     .post(controller.POST)
