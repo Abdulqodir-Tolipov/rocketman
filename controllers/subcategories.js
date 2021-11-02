@@ -2,11 +2,9 @@ const model = require('../repositories/subcategories.js')
 const validations = require('../validation/subcategories.js')
 
 const GET = async (req, res) => {
-    
     const subcategories = await model.get()
-    console.log(subcategories);
     if(subcategories){
-        res.status(200).json(subcategories||'bosh')
+        res.status(200).json(subcategories)
     }
 }
 
@@ -36,7 +34,6 @@ const POST = async (req, res) => {
             data
         })
     } catch (error) {
-        console.log(error);
         return res.status(400).json({
             status: 400,
             message: error.message,
@@ -96,7 +93,6 @@ const DELETE = async (req, res) => {
             data
         })
     } catch (error) {
-        console.log(error);
         return res.status(400).json({
             status: 400,
             message: error.message,
