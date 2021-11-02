@@ -93,7 +93,7 @@ const deleter = async ({ id }) => {
                 categories
                 where id = $1
             )update categories as c set
-                status = 'not active'
+                status = 'deleted'
             from old_data as o 
             where c.id = $1
             returning c.*

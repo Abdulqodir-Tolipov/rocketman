@@ -3,11 +3,23 @@ const validations = require("../validation/admin.js");
 const jwt = require("../utils/jwt.js")
 
 const GET = async (req, res) => {
+    try {
         const admins = await model.get();
         if (admins) {
-            res.status(200).json(admins);
+            const isAdmin = jwt.verify(req.cookies.token)
+            if(isAdmin == 'superadmin') {
+                res.status(200).json(admins);
+            } else throw new Error("You are not superadmin!")
         }
+    } catch (error) {
+        res.status(400).json({
+            status: 400,
+            message: error.message,
+            data: null
+        });
+    }
 };  
+
 
 const POST = async (req, res) => {
     try {
@@ -61,32 +73,42 @@ const UPDATE = async (req, res) => {
                 .send(validationResult.error.details[0].message);
         }
 
-        const data = await model.update(req.body);
+        const isAdmin = jwt.verify(req.cookies.token)
+        if (isAdmin == 'superadmin') {
+            const data = await model.update(req.body);
 
-        return res.status(200).json({
-            status: 200,
-            message: "The admin is updated!",
-            data,
-        });
+            return res.status(200).json({
+                status: 200,
+                message: "The admin is updated!",
+                data,
+            });
+        } else throw new Error("You are not superadmin!")
+
     } catch (error) {
         res.status(400).json({
             status: 400,
             message: error.message,
+            data: null   
         });
     }
 };
 
 const DELETE = async (req, res) => {
     try {
-        const data = await model.deleter(req.body);
 
-        if (data) {
-            res.status(200).json({
-                status: 200,    
-                message: "The admin is deleted!",
-                data,
-            });
-        }
+        const isAdmin = jwt.verify(req.cookies.token)
+        if (isAdmin == 'superadmin') {
+            const data = await model.deleter(req.body);
+
+            if (data) {
+                res.status(200).json({
+                    status: 200,    
+                    message: "The admin is deleted!",
+                    data,
+                });
+            }
+        } else throw new Error("You are not superadmin!")
+
     } catch (error) {
         res.status(400).json({
             status: 400,
