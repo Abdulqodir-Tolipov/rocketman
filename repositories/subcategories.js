@@ -1,0 +1,111 @@
+const db = require("../utils/pg.js")
+
+const get = async () => {
+    try {
+        const GET_SUBCATEGORIES = `
+            select * from sub_categories
+            where status <> 'deleted'
+        `;
+
+        const result = await db(false, GET_SUBCATEGORIES)
+        
+        return result
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const post = async ({name, amount, contact, address, category_id}) => {
+    try {
+        const POST_SUBCATEGORIES = `
+            insert into sub_categories(name, amount, contact, address, category_id)values($1, $2, $3, $4, $5)
+            returning *
+        `;
+
+        const result = await db(true, POST_SUBCATEGORIES, name, amount, contact, address, category_id)
+        return result
+    } catch (error) {
+        throw error
+    }
+}
+
+const put = async({id, name, amount, contact, address, category_id}) => {
+    try {
+        const PUT_SUBCATEGORIES = `
+            with old_data as (
+                select
+                    id,
+                    name,
+                    amount,
+                    contact,
+                    address,
+                    category_id
+                from sub_categories
+                where id = $1
+            )update sub_categories scb set
+                name = (
+                    case
+                        when length($2) > 1 then $2
+                        else o.name
+                    end),
+                amount = (
+                    case
+                        when $3 > 0 then $3
+                        else o.amount
+                    end),
+                contact = (
+                    case
+                        when length($4) > 0 then $4
+                        else o.contact
+                    end),
+                address = (
+                    case
+                        when length($5) > 0 then $5
+                        else o.address
+                    end),
+                category_id = (
+                    case
+                        when $6 > 0 then $6
+                        else o.category_id
+                    end)
+                from old_data o
+                where scb.id = $1
+                returning scb.* 
+        `;
+        const result = await db(true, PUT_SUBCATEGORIES, id, name, amount, contact, address, category_id)
+        return result
+    } catch (error) {
+        throw error
+    }
+}
+
+const deleted = async({ id }) => {
+    try {
+        const DELETE_SUBCATEGORY = `
+        with old_data as (
+            select
+                id,
+                status
+            from 
+            sub_categories
+            where id = $1
+        )update sub_categories as c set
+            status = 'deleted'
+        from old_data as o 
+        where c.id = $1
+        returning c.*
+    `; 
+
+    const result = await db(true, DELETE_SUBCATEGORY, id);
+        return result;
+    } catch (error) {
+        throw error
+    }
+}
+
+module.exports = {
+    get,
+    post,
+    put,
+    deleted
+}
