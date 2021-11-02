@@ -13,8 +13,8 @@ const POST = async (req,res)=>{
     try{
         
         
-        let {name,info,imgLink,price,status,productId} = req.body
-        const validateResult = validations.addSubProduct.validate({name,info,price,imgLink,status,productId})
+        let {name,info,img_link,price,product_id} = req.body
+        const validateResult = validations.addSubProduct.validate({name,info,price,img_link,product_id})
 
         if (validateResult.error) {
             return res
@@ -57,8 +57,8 @@ const DELETE = async (req,res)=>{
 }
 const UPDATE = async (req,res)=>{
     try{
-        let {id,name,info,price,imgLink,status,productId} = req.body
-        const validateResult = validations.updateSubProduct.validate({id,name,info,price,imgLink,status,productId})
+        let {id,name,info,price,img_link,status,product_id} = req.body
+        const validateResult = validations.updateSubProduct.validate({id,name,info,price,img_link,status,product_id})
         if (validateResult.error) {
             return res
                 .status(400)
