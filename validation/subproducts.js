@@ -1,4 +1,3 @@
-const { string, number } = require('joi')
 const Joi = require('joi')
 
 const addSubProduct = Joi.object({
