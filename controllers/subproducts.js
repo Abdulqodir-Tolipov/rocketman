@@ -1,8 +1,10 @@
 const { valid } = require("joi");
+const path = require('path')
 const model = require("../repositories/subproducts.js")
 const validations = require("../validation/subproducts.js")
 
 const GET = async (req, res) => {
+
     const category = await model.get();
     if (category) {
         res.status(200).json(category);
@@ -10,7 +12,10 @@ const GET = async (req, res) => {
 }
 const POST = async (req,res)=>{
     try{
-        let {name,info,price,imgLink,status,productId} = req.body
+        let {imgLink} = req.files
+        console.log(imgLink)
+        console.log(req.body);
+        let {name,info,price,status,productId} = req.body
         const validateResult = validations.addSubProduct.validate({name,info,price,imgLink,status,productId})
 
         if (validateResult.error) {
@@ -18,6 +23,10 @@ const POST = async (req,res)=>{
                 .status(400)
                 .send(validateResult.error.details[0].message);
         }
+        
+        let filePath = path.join(process.cwd(),'uploads',imgLink.name)
+        imgLink.mv(filePath)
+        req.body.imgLink=filePath
         const data = await model.post(req.body);
 
         return res.status(200).json({
@@ -37,7 +46,7 @@ const DELETE = async (req,res)=>{
             return res
                 .status(400)
                 .send(validateResult.error.details[0].message);
-        } 
+        }
         const data = await model.delet(req.body);
 
         return res.status(200).json({
@@ -58,7 +67,7 @@ const UPDATE = async (req,res)=>{
             return res
                 .status(400)
                 .send(validateResult.error.details[0].message);
-        } 
+        }
         const data = await model.update(req.body);
         return res.status(200).json({
             status: 200,
