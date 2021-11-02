@@ -6,16 +6,18 @@ const validateCookies = require("./middlewares/checkToken.js");
 const adminRouter = require("./routes/v1/admin.js");
 const loginRouter = require("./routes/v1/login.js");
 const categoryRouter = require("./routes/v1/categories.js");
-const subProducts = require("./routes/v1/subproducts.js")
+const subProductsRouter = require("./routes/v1/subproducts.js");
+const subCategoriesRouter = require("./routes/v1/subcategories.js")
 const app = express();
 
 app.use(express.json());
 app.use(cookie());
 app.use(validateCookies);
 app.use(adminRouter);
-app.use(subProducts)
+app.use(subProductsRouter)
 app.use(loginRouter)
 app.use(categoryRouter)
+app.use(subCategoriesRouter) 
 
 app.listen(config.PORT, () => {
     console.log(`The server is ready on http://localhost:${config.PORT}`);
