@@ -5,7 +5,7 @@ const addSubProduct = Joi.object({
     name:Joi.string().min(2).max(100).required(),
     info:Joi.string().min(2).max(200).required(),
     price:Joi.number().min(1000).max(1000000).required(),
-    imgLink:Joi.required().string().uri(),
+    imgLink:Joi.string().uri().required(),
     status:Joi.string().required(),
     productId:Joi.number().min(1).required()
 })

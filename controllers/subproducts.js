@@ -1,4 +1,3 @@
-const { valid } = require("joi");
 const path = require('path')
 const model = require("../repositories/subproducts.js")
 const validations = require("../validation/subproducts.js")
