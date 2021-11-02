@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path')
 const config = require("./config/server.js");
 const cookie = require("cookie-parser");
 const validateCookies = require("./middlewares/checkToken.js");
@@ -12,6 +13,7 @@ const subCategoriesRouter = require("./routes/v1/subcategories.js")
 const bot = require('./utils/bot.js')
 const commentsRouter = require("./routes/v1/comments.js")
 const app = express();
+
 
 app.use(express.json());
 app.use(cookie());
