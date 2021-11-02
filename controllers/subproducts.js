@@ -12,10 +12,9 @@ const GET = async (req, res) => {
 }
 const POST = async (req,res)=>{
     try{
-        let {imgLink} = req.files
-        console.log(imgLink)
-        console.log(req.body);
-        let {name,info,price,status,productId} = req.body
+        
+        
+        let {name,info,imgLink,price,status,productId} = req.body
         const validateResult = validations.addSubProduct.validate({name,info,price,imgLink,status,productId})
 
         if (validateResult.error) {
@@ -24,9 +23,7 @@ const POST = async (req,res)=>{
                 .send(validateResult.error.details[0].message);
         }
         
-        let filePath = path.join(process.cwd(),'uploads',imgLink.name)
-        imgLink.mv(filePath)
-        req.body.imgLink=filePath
+       
         const data = await model.post(req.body);
 
         return res.status(200).json({
