@@ -8,13 +8,13 @@ const get = async () => {
                 * 
             from    
                 admins
-            where status <> 'not active'
+            where status <> 'deleted'
         `; 
 
         const result = await db(false, GET_ADMIN);
         return result;
     } catch (error) {
-        console.error(error);
+        throw error;
     }
 };
 
@@ -60,13 +60,13 @@ const update = async ({ id, username, password }) => {
             where a.id = $1
             returning a.*        
         `;
-
+        password = password ? md5(password) : undefined
         const result = await db(
             true,
             UPDATE_ADMIN,
             id,
             username,
-            md5(password)
+            password
         );
         return result;
     } catch (error) {
@@ -85,7 +85,7 @@ const deleter = async ({ id }) => {
                     admins
                 where id = $1
             )update admins as a set
-                status = 'not active'
+                status = 'deleted'
             from old_data as o 
             where a.id = $1
             returning a.*
