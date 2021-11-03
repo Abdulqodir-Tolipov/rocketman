@@ -72,6 +72,19 @@ const UPDATE = async (req, res) => {
 
 const DELETE = async (req, res) => {
   try {
+
+    let { id } = req.body
+
+    const validationResult = validations.deleteCategory.validate({
+        id
+    })
+
+    if (validationResult.error) {
+        return res
+            .status(400)
+            .send(validationResult.error.detials[0].message)
+    }
+
     const data = await model.deleter(req.body);
 
     if (data) {
