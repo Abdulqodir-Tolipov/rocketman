@@ -14,7 +14,7 @@ const companyRouter = require("./routes/v1/company.js")
 const commentsRouter = require("./routes/v1/comments.js")
 const app = express();
 
-app.use(express.json());
+app.use(express.json()); 
 app.use(cookie());
 app.use(validateCookies);
 app.use(adminRouter);
