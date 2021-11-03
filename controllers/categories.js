@@ -39,35 +39,6 @@ const POST = async (req, res) => {
 };
 
 const UPDATE = async (req, res) => {
-<<<<<<< HEAD
-    try {
-        let { name, tg_name, shop } = req.body;
-
-        const validationResult = validations.updateCategory.validate({
-            name,
-            tg_name,
-            shop
-        });
-
-        if (validationResult.error) {
-            return res
-                .status(400)
-                .send(validationResult.error.details[0].message);
-        }
-
-        const data = await model.update(req.body);
-
-        return res.status(200).json({
-            status: 200,
-            message: "The category is updated!",
-            data,
-        });
-    } catch (error) {
-        res.status(400).json({
-            status: 400,
-            message: error.message,
-        });
-=======
   try {
     let { id, name, tg_name, shop, status } = req.body;
 
@@ -81,7 +52,6 @@ const UPDATE = async (req, res) => {
 
     if (validationResult.error) {
       return res.status(400).send(validationResult.error.details[0].message);
->>>>>>> 32a70326f0ef35e73d19e0651ffc4c2e3bc8f97e
     }
 
     const data = await model.update(req.body);
@@ -101,25 +71,6 @@ const UPDATE = async (req, res) => {
 };
 
 const DELETE = async (req, res) => {
-<<<<<<< HEAD
-    try {
-        const data = await model.deleter(req.body);
-        console.log(data);
-
-        if (data) {
-            res.status(200).json({
-                status: 200,    
-                message: "The category is deleted!",
-                data,
-            });
-        }
-    } catch (error) {
-        res.status(400).json({
-            status: 400,
-            message: error.message,
-            data: null
-        });
-=======
   try {
     const data = await model.deleter(req.body);
 
@@ -129,7 +80,6 @@ const DELETE = async (req, res) => {
         message: 'The category is deleted!',
         data,
       });
->>>>>>> 32a70326f0ef35e73d19e0651ffc4c2e3bc8f97e
     }
   } catch (error) {
     res.status(400).json({
