@@ -10,16 +10,7 @@ const categoryRouter = require('./routes/v1/categories.js');
 const productRouter = require('./routes/v1/products.js');
 const subProductsRouter = require('./routes/v1/subproducts.js');
 const subCategoriesRouter = require('./routes/v1/subcategories.js');
-const bot = require('./utils/bot.js');
-const commentsRouter = require('./routes/v1/comments.js');
-const adminRouter = require("./routes/v1/admin.js");
-const loginRouter = require("./routes/v1/login.js");
-const categoryRouter = require("./routes/v1/categories.js");
-const productRouter = require("./routes/v1/products.js")
-const subProductsRouter = require("./routes/v1/subproducts.js");
-const subCategoriesRouter = require("./routes/v1/subcategories.js")
 const companyRouter = require("./routes/v1/company.js")
-const bot = require('./utils/bot.js')
 const commentsRouter = require("./routes/v1/comments.js")
 const app = express();
 
