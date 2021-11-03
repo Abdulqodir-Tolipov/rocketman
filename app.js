@@ -4,7 +4,6 @@ const config = require('./config/server.js');
 const cookie = require('cookie-parser');
 const validateCookies = require('./middlewares/checkToken.js');
 
-<<<<<<< HEAD
 const adminRouter = require('./routes/v1/admin.js');
 const loginRouter = require('./routes/v1/login.js');
 const categoryRouter = require('./routes/v1/categories.js');
@@ -13,7 +12,6 @@ const subProductsRouter = require('./routes/v1/subproducts.js');
 const subCategoriesRouter = require('./routes/v1/subcategories.js');
 const bot = require('./utils/bot.js');
 const commentsRouter = require('./routes/v1/comments.js');
-=======
 const adminRouter = require("./routes/v1/admin.js");
 const loginRouter = require("./routes/v1/login.js");
 const categoryRouter = require("./routes/v1/categories.js");
