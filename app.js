@@ -16,7 +16,7 @@ const driversRouter = require("./routes/v1/drivers.js")
 
 const app = express();
 
-app.use(express.json());
+app.use(express.json()); 
 app.use(cookie());
 app.use(validateCookies);
 app.use(adminRouter);
