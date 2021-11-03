@@ -7,7 +7,7 @@ const get = async () => {
                 * 
             from    
                 categories
-            where status = 'active'
+            where status <> 'deleted'
         `;
 
         const result = await db(false, GET_CATEGORY);
@@ -32,7 +32,7 @@ const post = async ({ name, tg_name, shop }) => {
     }
 };
 
-const update = async ({ id, name, tg_name, shop }) => {
+const update = async ({ id, name, tg_name, shop, status }) => {
     try {
         const UPDATE_CATEGORY = `
             with old_data as (
@@ -40,7 +40,8 @@ const update = async ({ id, name, tg_name, shop }) => {
                     id,
                     name,
                     tg_name,
-                    shop
+                    shop,
+                    status
                 from 
                     categories
                 where id = $1 
@@ -62,6 +63,12 @@ const update = async ({ id, name, tg_name, shop }) => {
                         when $4 > 0 then $4
                         else o.shop
                     end
+                ),
+                status = (
+                    case
+                        when length($5) > 1 then $5
+                        else o.status
+                    end
                 )
             from old_data as o
             where c.id = $1
@@ -74,7 +81,8 @@ const update = async ({ id, name, tg_name, shop }) => {
             id,
             name,
             tg_name,
-            shop
+            shop,
+            status
         );
         return result;
     } catch (error) {
