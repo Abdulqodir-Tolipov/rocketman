@@ -1,8 +1,8 @@
-const db = require("../utils/pg.js")
+const db = require('../utils/pg.js');
 
 const get = async () => {
-    try {
-        const GET_SUB_PRODUCTS = `
+  try {
+    const GET_SUB_PRODUCTS = `
             select
                 * 
             from    
@@ -10,28 +10,37 @@ const get = async () => {
             where status <> 'deleted'
         `;
 
-        const result = await db(false, GET_SUB_PRODUCTS);
-        return result;
-    } catch (error) {
-        console.error(error);
-    }
+    const result = await db(false, GET_SUB_PRODUCTS);
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
 };
-const post = async ({name,info,price,imgLink,status,productId})=>{
-    try{
-        const INSERT_SUB_PRODUCTS = `
-           insert into sub_products(name,info,price,img_link,status,product_id)
-           values($1,$2,$3,$4,$5,$6)
+const post = async ({ name, info, price, img_link, status, product_id }) => {
+  try {
+    console.log(status);
+    const INSERT_SUB_PRODUCTS = `
+           insert into sub_products(name,info,price,img_link,product_id)
+           values($1,$2,$3,$4,$5)
            returning *
-        `
-        const result = await db(true,INSERT_SUB_PRODUCTS,name,info,price,imgLink,status,productId)
-        return result;
-    }catch(error){
-        console.error(error)
-    }
-}
-const delet = async ({id})=>{
-    try{
-      const DELETE_SUB_PRODUCT = `
+        `;
+    const result = await db(
+      true,
+      INSERT_SUB_PRODUCTS,
+      name,
+      info,
+      price,
+      img_link,
+      product_id
+    );
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+const delet = async ({ id }) => {
+  try {
+    const DELETE_SUB_PRODUCT = `
       with old_data as (
         select
             id,
@@ -44,17 +53,24 @@ const delet = async ({id})=>{
     from old_data as o 
     where c.id = $1
     returning c.*
-      `
-      const result = await db(true,DELETE_SUB_PRODUCT,id)
-      return result;
-
-    }catch(error){
-        console.error(error)
-    }
-}
-const update = async({id,name,info,price,imgLink,status,productId})=>{
-    try{
-        const UPDATE_SUB_PRODUCT = `
+      `;
+    const result = await db(true, DELETE_SUB_PRODUCT, id);
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+const update = async ({
+  id,
+  name,
+  info,
+  price,
+  img_link,
+  status,
+  product_id,
+}) => {
+  try {
+    const UPDATE_SUB_PRODUCT = `
         with old_data as (
             select
                 name,
@@ -106,16 +122,26 @@ const update = async({id,name,info,price,imgLink,status,productId})=>{
         from old_data as o
         where c.id = $1
         returning c.* 
-        `
-        const result = await db(true,UPDATE_SUB_PRODUCT,id,name,info,price,imgLink,status,productId)
-        return result
-    }catch(error){
-        console.error(error)
-    }
-}
-module.exports = { 
-    get,
-    post,
-    delet,
-    update
-}
+        `;
+    const result = await db(
+      true,
+      UPDATE_SUB_PRODUCT,
+      id,
+      name,
+      info,
+      price,
+      img_link,
+      status,
+      product_id
+    );
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+module.exports = {
+  get,
+  post,
+  delet,
+  update,
+};
