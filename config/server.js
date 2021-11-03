@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const config = {
-  PORT: process.env.SERVER_PORT,
+  PORT: process.env.PORT,
   PRIVATE_KEY: process.env.PRIVATE_KEY,
 };
 
