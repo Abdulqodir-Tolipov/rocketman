@@ -67,7 +67,6 @@ const UPDATE = async (req, res) => {
             data,
         });
     } catch (error) {
-        console.log(error);
         res.status(400).json({
             status: 400,
             message: error.message,
@@ -79,6 +78,7 @@ const UPDATE = async (req, res) => {
 const DELETE = async (req, res) => {
     try {
         const data = await model.deleter(req.body);
+        console.log(data);
 
         if (data) {
             res.status(200).json({
