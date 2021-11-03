@@ -1,10 +1,10 @@
-const dotenv = require("dotenv")
+const dotenv = require('dotenv');
 
-dotenv.config()
+dotenv.config();
 
 const config = {
-    PORT: process.env.SERVER_PORT,
-    PRIVATE_KEY: process.env.PRIVATE_KEY
-}
+  PORT: process.env.SERVER_PORT,
+  PRIVATE_KEY: process.env.PRIVATE_KEY,
+};
 
-module.exports = config
+module.exports = config;

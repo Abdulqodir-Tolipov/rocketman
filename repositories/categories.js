@@ -1,8 +1,8 @@
-const db = require("../utils/pg.js")
+const db = require('../utils/pg.js');
 
 const get = async () => {
-    try {
-        const GET_CATEGORY = `
+  try {
+    const GET_CATEGORY = `
             select
                 * 
             from    
@@ -10,31 +10,30 @@ const get = async () => {
             where status <> 'deleted'
         `;
 
-        const result = await db(false, GET_CATEGORY);
-        return result;
-    } catch (error) {
-        console.error(error);
-    }
+    const result = await db(false, GET_CATEGORY);
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-
 const post = async ({ name, tg_name, shop }) => {
-    try {
-        const POST_CATEGORY = `
+  try {
+    const POST_CATEGORY = `
             insert into categories(name, tg_name, shop) values($1, $2, $3)
             returning *
         `;
 
-        const result = await db(true, POST_CATEGORY, name, tg_name, shop);
-        return result;
-    } catch (error) {
-        throw error;
-    }
+    const result = await db(true, POST_CATEGORY, name, tg_name, shop);
+    return result;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const update = async ({ id, name, tg_name, shop, status }) => {
-    try {
-        const UPDATE_CATEGORY = `
+  try {
+    const UPDATE_CATEGORY = `
             with old_data as (
                 select
                     id,
@@ -75,24 +74,24 @@ const update = async ({ id, name, tg_name, shop, status }) => {
             returning c.*        
         `;
 
-        const result = await db(
-            true,
-            UPDATE_CATEGORY,
-            id,
-            name,
-            tg_name,
-            shop,
-            status
-        );
-        return result;
-    } catch (error) {
-        throw error;
-    }
+    const result = await db(
+      true,
+      UPDATE_CATEGORY,
+      id,
+      name,
+      tg_name,
+      shop,
+      status
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const deleter = async ({ id }) => {
-    try {
-        const DELETE_CATEGORY = `
+  try {
+    const DELETE_CATEGORY = `
             with old_data as (
                 select
                     id,
@@ -107,16 +106,16 @@ const deleter = async ({ id }) => {
             returning c.*
         `;
 
-        const result = await db(true, DELETE_CATEGORY, id);
-        return result;
-    } catch (error) {
-        throw error;
-    }
+    const result = await db(true, DELETE_CATEGORY, id);
+    return result;
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {
-    get,
-    post,
-    update,
-    deleter,
+  get,
+  post,
+  update,
+  deleter,
 };
