@@ -45,12 +45,14 @@ const POST = async (req, res) => {
 
 const UPDATE = async (req, res) => {
     try {
-        let { name, tg_name, shop } = req.body;
+        let { id, name, tg_name, shop, status } = req.body;
 
         const validationResult = validations.updateCategory.validate({
+            id,
             name,
             tg_name,
-            shop
+            shop,
+            status
         });
 
         if (validationResult.error) {
