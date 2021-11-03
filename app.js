@@ -10,6 +10,7 @@ const categoryRouter = require("./routes/v1/categories.js");
 const productRouter = require("./routes/v1/products.js")
 const subProductsRouter = require("./routes/v1/subproducts.js");
 const subCategoriesRouter = require("./routes/v1/subcategories.js")
+const companyRouter = require("./routes/v1/company.js")
 const bot = require('./utils/bot.js')
 const commentsRouter = require("./routes/v1/comments.js")
 const app = express();
@@ -25,6 +26,7 @@ app.use(loginRouter)
 app.use(categoryRouter)
 app.use(subCategoriesRouter)
 app.use(commentsRouter)
+app.use(companyRouter)
 
 app.listen(config.PORT, () => {
     console.log(`The server is ready on http://localhost:${config.PORT}`);
