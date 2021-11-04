@@ -3,7 +3,15 @@ const validations = require('../validation/categories.js');
 
 const GET = async (req, res) => {
   const category = await model.get(req.params);
-  res.status(200).json(category);
+  if (category) {
+    res.status(200).json(category);
+  } else {
+    res.status(400).json({
+      status: 400,
+      message: 'not found!',
+      data: null,
+    });
+  }
 };
 
 const POST = async (req, res) => {

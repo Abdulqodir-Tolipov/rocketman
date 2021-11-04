@@ -1,6 +1,6 @@
 const db = require("../utils/pg.js")
 
-const update = async({id, name, media_link, delivery_price, katalog_link, contact}) => {
+const update = async({name, media_link, delivery_price, katalog_link, contact}) => {
     try {
         const PUT_SUBCATEGORIES = `
             with old_data as (
