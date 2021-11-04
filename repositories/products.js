@@ -1,6 +1,6 @@
 const db = require("../utils/pg.js")
 
-const get = async () => {
+const get = async ({id}) => {
     try {
         const GET_CATEGORY = `
             select
@@ -9,9 +9,19 @@ const get = async () => {
                 products
             where status <> 'deleted'
         `;
-
-        const result = await db(false, GET_CATEGORY);
-        return result;
+        const GET_BY_PARAMS = `
+        select * 
+        from products s
+        where s.id=$1 and s.status <> 'deleted'
+        
+   `
+   if(id){
+    const result = await db(true, GET_BY_PARAMS,id)
+    return result
+  }else{
+    const result = await db(false, GET_CATEGORY)
+    return result;
+  }
     } catch (error) {
         console.error(error);
     }
