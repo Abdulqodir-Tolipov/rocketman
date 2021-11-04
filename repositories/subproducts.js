@@ -84,6 +84,7 @@ const update = async ({
     const UPDATE_SUB_PRODUCT = `
         with old_data as (
             select
+                id,
                 name,
                 info,
                 price,
@@ -126,7 +127,7 @@ const update = async ({
             ),
             product_id = (
                 case 
-                    when ($7)>1 then $7
+                    when ($7)>0 then $7
                     else o.product_id
                 end
             )
