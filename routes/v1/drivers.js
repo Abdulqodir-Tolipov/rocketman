@@ -6,5 +6,6 @@ router.route('/drivers')
     .post(controller.POST)
     .put(controller.UPDATE)
     .delete(controller.DELETE)
+router.route('/drivers/:id').get(controller.GET)
 
 module.exports = router    

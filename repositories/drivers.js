@@ -1,6 +1,7 @@
 const db = require("../utils/pg.js")
 
-const get = async () => {
+const get = async ({id}) => {
+    console.log('mana id'+id);
     try {
         const GET_DRIVER = `
             select
@@ -8,9 +9,19 @@ const get = async () => {
             from drivers
             where status <> 'deleted'
         `
-
-        const result = await db(false, GET_DRIVER)
-        return result
+        const GET_BY_PARAMS = `
+        select * 
+        from drivers d
+        where d.id=$1 and d.status <> 'deleted'
+        
+   `
+   if(id){
+    const result = await db(true, GET_BY_PARAMS,id)
+    return result
+  }else{
+    const result = await db(false, GET_DRIVER)
+    return result;
+  }
     }
     catch (error) {
         console.log(error)
