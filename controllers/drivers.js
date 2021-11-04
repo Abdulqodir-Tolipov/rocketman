@@ -3,9 +3,16 @@ const validations = require("../validation/drivers.js")
 
 
 const GET = async (req, res) => {
-    const driver = await model.get()
+    
+    const driver = await model.get(req.params)
     if (driver) {
         res.status(200).json(driver)
+    }else{
+        res.status(400).json({
+            status:400,
+            message:"not found",
+            data:null
+        })
     }
 }
 

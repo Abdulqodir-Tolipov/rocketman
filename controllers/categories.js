@@ -111,4 +111,4 @@ module.exports = {
   POST,
   UPDATE,
   DELETE,
-};
+}
