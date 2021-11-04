@@ -2,14 +2,8 @@ const model = require('../repositories/categories.js');
 const validations = require('../validation/categories.js');
 
 const GET = async (req, res) => {
-  if (req.params) {
-    const param = await model.get(req.params)
-    res.status(200).json(param);
-  } else {
-  const category = await model.get();
-    console.log(category);
-    res.status(200).json(category);
-  }
+  const category = await model.get(req.params);
+  res.status(200).json(category);
 };
 
 const POST = async (req, res) => {
@@ -76,17 +70,14 @@ const UPDATE = async (req, res) => {
 
 const DELETE = async (req, res) => {
   try {
-
-    let { id } = req.body
+    let { id } = req.body;
 
     const validationResult = validations.deleteCategory.validate({
-        id
-    })
+      id,
+    });
 
     if (validationResult.error) {
-        return res
-            .status(400)
-            .send(validationResult.error.detials[0].message)
+      return res.status(400).send(validationResult.error.detials[0].message);
     }
 
     const data = await model.deleter(req.body);
