@@ -1,17 +1,31 @@
 const db = require('../utils/pg.js');
 
-const get = async () => {
+const get = async ({param}) => {
   try {
+    const GET_BY_PARAMS = `
+      select 
+        * 
+      from
+        categories
+      where id = $1 and status <> 'deleted'
+    `
+    
     const GET_CATEGORY = `
-            select
-                * 
-            from    
-                categories
-            where status <> 'deleted'
-        `;
+      select
+        * 
+      from    
+        categories
+      where status <> 'deleted'
+    `;
 
-    const result = await db(false, GET_CATEGORY);
-    return result;
+    if (param) {
+      const result = await db(true, GET_BY_PARAMS, param);
+      return result;
+    } else {
+      const result = await db(false, GET_CATEGORY);
+      return result;
+    }
+
   } catch (error) {
     console.error(error);
   }

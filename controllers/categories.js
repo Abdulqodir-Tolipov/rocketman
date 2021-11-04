@@ -2,8 +2,12 @@ const model = require('../repositories/categories.js');
 const validations = require('../validation/categories.js');
 
 const GET = async (req, res) => {
+  if (req.params) {
+    const param = await model.get(req.params)
+    res.status(200).json(param);
+  } else {
   const category = await model.get();
-  if (category) {
+    console.log(category);
     res.status(200).json(category);
   }
 };
