@@ -3,11 +3,10 @@ const model = require('../repositories/subproducts.js');
 const validations = require('../validation/subproducts.js');
 
 const GET = async (req, res) => {
-  const category = await model.get();
-  if (category) {
-    res.status(200).json(category);
-  }
+  const category = await model.get(req.params);
+  res.status(200).json(category);
 };
+
 const POST = async (req, res) => {
   try {
     let { name, info, img_link, price, product_id } = req.body;

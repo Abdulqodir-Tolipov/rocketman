@@ -7,7 +7,6 @@ const GET = async (req, res) => {
     res.status(200).json(param);
   } else {
   const category = await model.get();
-    console.log(category);
     res.status(200).json(category);
   }
 };
