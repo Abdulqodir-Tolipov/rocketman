@@ -10,7 +10,7 @@ const GET = async (req, res) => {
       if (admins) {
         res.status(200).json(admins);
       } else throw new Error('Admin is not found!');
-    } else throw new Error('You are not superadmin!')
+    } else throw new Error('You are not superadmin!');
   } catch (error) {
     res.status(400).json({
       status: 400,

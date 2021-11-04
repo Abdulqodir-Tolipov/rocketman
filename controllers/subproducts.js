@@ -1,17 +1,16 @@
-const path = require('path');
 const model = require('../repositories/subproducts.js');
 const validations = require('../validation/subproducts.js');
 
 const GET = async (req, res) => {
   const category = await model.get(req.params);
-  if(category){
+  if (category) {
     res.status(200).json(category);
-  }else{
+  } else {
     res.status(400).json({
-      status:400,
-      message:"not found",
-      data:null
-    })
+      status: 400,
+      message: 'not found',
+      data: null,
+    });
   }
 };
 

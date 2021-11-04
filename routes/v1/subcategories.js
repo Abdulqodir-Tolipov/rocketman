@@ -8,6 +8,6 @@ router
   .put(controller.PUT)
   .delete(controller.DELETE);
 
-router.route('/subcategories/:param').get(controller.GET)
+router.route('/subcategories/:param').get(controller.GET);
 
 module.exports = router;

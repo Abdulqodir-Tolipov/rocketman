@@ -1,4 +1,4 @@
-const db = require("../utils/pg.js");
+const db = require('../utils/pg.js');
 
 const get = async () => {
   try {
