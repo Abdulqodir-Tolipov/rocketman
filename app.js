@@ -8,21 +8,33 @@ const loginRouter = require("./routes/v1/login.js");
 const categoryRouter = require("./routes/v1/categories.js");
 const subProductsRouter = require("./routes/v1/subproducts.js");
 const subCategoriesRouter = require("./routes/v1/subcategories.js")
+
+const productRouter = require('./routes/v1/products.js');
+const companyRouter = require("./routes/v1/company.js")
 const commentsRouter = require("./routes/v1/comments.js")
-const realUsersRouter = require("./routes/v1/realUsers.js")
+const driversRouter = require("./routes/v1/drivers.js")
+
 const app = express();
 
-app.use(express.json());
+app.use(express.json()); 
 app.use(cookie());
 app.use(validateCookies);
 app.use(adminRouter);
+app.use(productRouter);
+app.use(subProductsRouter);
+app.use(loginRouter);
+app.use(categoryRouter);
+app.use(subCategoriesRouter);
+app.use(commentsRouter);
+app.use(productRouter)
 app.use(subProductsRouter)
 app.use(loginRouter)
 app.use(categoryRouter)
 app.use(subCategoriesRouter)
 app.use(commentsRouter)
-app.use(realUsersRouter)
+app.use(driversRouter)
+app.use(companyRouter)
 
 app.listen(config.PORT, () => {
-    console.log(`The server is ready on http://localhost:${config.PORT}`);
+  console.log(`The server is ready on http://localhost:${config.PORT}`);
 });

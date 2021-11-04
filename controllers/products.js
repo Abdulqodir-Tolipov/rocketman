@@ -1,19 +1,22 @@
-const model = require('../repositories/categories.js');
-const validations = require('../validation/categories.js');
+const model = require('../repositories/products.js');
+const validations = require('../validation/products.js');
 
 const GET = async (req, res) => {
-  const category = await model.get(req.params);
-  res.status(200).json(category);
+  const category = await model.get();
+  if (category) {
+    res.status(200).json(category);
+  }
 };
 
 const POST = async (req, res) => {
   try {
-    let { name, tg_name, shop } = req.body;
+    let { name, tg_name, amount, sub_categories_id } = req.body;
 
-    const validationResult = validations.addCategory.validate({
+    const validationResult = validations.addProduct.validate({
       name,
       tg_name,
-      shop,
+      amount,
+      sub_categories_id,
     });
 
     if (validationResult.error) {
@@ -24,7 +27,7 @@ const POST = async (req, res) => {
 
     return res.status(200).json({
       status: 200,
-      message: 'The new category is added!',
+      message: 'The new product is added!',
       data,
     });
   } catch (error) {
@@ -38,14 +41,15 @@ const POST = async (req, res) => {
 
 const UPDATE = async (req, res) => {
   try {
-    let { id, name, tg_name, shop, status } = req.body;
+    let { id, name, tg_name, amount, status, sub_categories_id } = req.body;
 
-    const validationResult = validations.updateCategory.validate({
+    const validationResult = validations.updateProduct.validate({
       id,
       name,
       tg_name,
-      shop,
+      amount,
       status,
+      sub_categories_id,
     });
 
     if (validationResult.error) {
@@ -56,7 +60,7 @@ const UPDATE = async (req, res) => {
 
     return res.status(200).json({
       status: 200,
-      message: 'The category is updated!',
+      message: 'The product is updated!',
       data,
     });
   } catch (error) {
@@ -72,12 +76,12 @@ const DELETE = async (req, res) => {
   try {
     let { id } = req.body;
 
-    const validationResult = validations.deleteCategory.validate({
+    const validationResult = validations.deleteProduct.validate({
       id,
     });
 
     if (validationResult.error) {
-      return res.status(400).send(validationResult.error.detials[0].message);
+      return res.status(400).send(validationResult.error.details[0].message);
     }
 
     const data = await model.deleter(req.body);
@@ -85,7 +89,7 @@ const DELETE = async (req, res) => {
     if (data) {
       res.status(200).json({
         status: 200,
-        message: 'The category is deleted!',
+        message: 'The product is deleted!',
         data,
       });
     }
@@ -103,4 +107,4 @@ module.exports = {
   POST,
   UPDATE,
   DELETE,
-}
+};

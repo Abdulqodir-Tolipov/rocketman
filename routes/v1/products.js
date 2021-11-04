@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const controller = require('../../controllers/subcategories.js');
+const controller = require('../../controllers/products.js');
 
 router
-  .route('/subcategories')
+  .route('/products')
   .get(controller.GET)
   .post(controller.POST)
-  .put(controller.PUT)
+  .put(controller.UPDATE)
   .delete(controller.DELETE);
 
 module.exports = router;

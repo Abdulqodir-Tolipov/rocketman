@@ -1,37 +1,53 @@
-const db = require("../utils/pg.js")
+const db = require('../utils/pg.js');
 
 const get = async () => {
-    try {
-        const GET_SUBCATEGORIES = `
+  try {
+    const GET_SUBCATEGORIES = `
             select * from sub_categories
             where status <> 'deleted'
         `;
 
-        const result = await db(false, GET_SUBCATEGORIES)
-        
-        return result
-    } catch (error) {
-        throw error
-    }
-}
+    const result = await db(false, GET_SUBCATEGORIES);
 
-const post = async ({name, amount, contact, address, status, category_id}) => {
-    try {
-        const POST_SUBCATEGORIES = `
-            insert into sub_categories(name, amount, contact, address, status, category_id)values($1, $2, $3, $4, $5)
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const post = async ({ name, amount, contact, address, category_id }) => {
+  try {
+    const POST_SUBCATEGORIES = `
+            insert into sub_categories(name, amount, contact, address, category_id)values($1, $2, $3, $4, $5)
             returning *
         `;
 
-        const result = await db(true, POST_SUBCATEGORIES, name, amount, contact, address, status, category_id)
-        return result
-    } catch (error) {
-        throw error
-    }
-}
+    const result = await db(
+      true,
+      POST_SUBCATEGORIES,
+      name,
+      amount,
+      contact,
+      address,
+      category_id
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
 
-const put = async({id, name, amount, contact, address, status, category_id}) => {
-    try {
-        const PUT_SUBCATEGORIES = `
+const put = async ({
+  id,
+  name,
+  amount,
+  contact,
+  address,
+  status,
+  category_id,
+}) => {
+  try {
+    const PUT_SUBCATEGORIES = `
             with old_data as (
                 select
                     id,
@@ -65,10 +81,11 @@ const put = async({id, name, amount, contact, address, status, category_id}) => 
                         else o.address
                     end),
                 status = (
-                    case
+                    case 
                         when length($6) > 0 then $6
                         else o.status
-                    end),
+                    end
+                ),
                 category_id = (
                     case
                         when $7 > 0 then $7
@@ -78,16 +95,26 @@ const put = async({id, name, amount, contact, address, status, category_id}) => 
                 where scb.id = $1
                 returning scb.* 
         `;
-        const result = await db(true, PUT_SUBCATEGORIES, id, name, amount, contact, address, status, category_id)
-        return result
-    } catch (error) {
-        throw error
-    }
-}
+    const result = await db(
+      true,
+      PUT_SUBCATEGORIES,
+      id,
+      name,
+      amount,
+      contact,
+      address,
+      status,
+      category_id
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
 
-const deleted = async({ id }) => {
-    try {
-        const DELETE_SUBCATEGORY = `
+const deleted = async ({ id }) => {
+  try {
+    const DELETE_SUBCATEGORY = `
         with old_data as (
             select
                 id,
@@ -100,18 +127,18 @@ const deleted = async({ id }) => {
         from old_data as o 
         where c.id = $1
         returning c.*
-    `; 
+    `;
 
     const result = await db(true, DELETE_SUBCATEGORY, id);
-        return result;
-    } catch (error) {
-        throw error
-    }
-}
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
 
 module.exports = {
-    get,
-    post,
-    put,
-    deleted
-}
+  get,
+  post,
+  put,
+  deleted,
+};
