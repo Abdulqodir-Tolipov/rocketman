@@ -10,13 +10,14 @@ const GET = async (req, res) => {
 
 const POST = async (req, res) => {
     try {
-        let{ name, amount, contact, address, category_id } = req.body
+        let{ name, amount, contact, address, status, category_id } = req.body
 
         const validateResult = validations.addSubcategories.validate({
             name,
             amount,
             contact,
             address,
+            status,
             category_id
         });
 
@@ -44,10 +45,10 @@ const POST = async (req, res) => {
 
 const PUT = async (req, res) => {
     try {
-        let {id, name, amount, contact, address, category_id} = req.body
+        let {id, name, amount, contact, address, status, category_id} = req.body
 
         const validateResult = validations.putSubCategories.validate({
-            id, name, amount, contact, address, category_id
+            id, name, amount, contact, address, status, category_id
         })
 
         if(validateResult.error){

@@ -11,25 +11,25 @@ const get = async () => {
         
         return result
     } catch (error) {
-        console.log(error)
+        throw error
     }
 }
 
-const post = async ({name, amount, contact, address, category_id}) => {
+const post = async ({name, amount, contact, address, status, category_id}) => {
     try {
         const POST_SUBCATEGORIES = `
-            insert into sub_categories(name, amount, contact, address, category_id)values($1, $2, $3, $4, $5)
+            insert into sub_categories(name, amount, contact, address, status, category_id)values($1, $2, $3, $4, $5)
             returning *
         `;
 
-        const result = await db(true, POST_SUBCATEGORIES, name, amount, contact, address, category_id)
+        const result = await db(true, POST_SUBCATEGORIES, name, amount, contact, address, status, category_id)
         return result
     } catch (error) {
         throw error
     }
 }
 
-const put = async({id, name, amount, contact, address, category_id}) => {
+const put = async({id, name, amount, contact, address, status, category_id}) => {
     try {
         const PUT_SUBCATEGORIES = `
             with old_data as (
@@ -39,6 +39,7 @@ const put = async({id, name, amount, contact, address, category_id}) => {
                     amount,
                     contact,
                     address,
+                    status,
                     category_id
                 from sub_categories
                 where id = $1
@@ -63,16 +64,21 @@ const put = async({id, name, amount, contact, address, category_id}) => {
                         when length($5) > 0 then $5
                         else o.address
                     end),
+                status = (
+                    case
+                        when length($6) > 0 then $6
+                        else o.status
+                    end),
                 category_id = (
                     case
-                        when $6 > 0 then $6
+                        when $7 > 0 then $7
                         else o.category_id
                     end)
                 from old_data o
                 where scb.id = $1
                 returning scb.* 
         `;
-        const result = await db(true, PUT_SUBCATEGORIES, id, name, amount, contact, address, category_id)
+        const result = await db(true, PUT_SUBCATEGORIES, id, name, amount, contact, address, status, category_id)
         return result
     } catch (error) {
         throw error

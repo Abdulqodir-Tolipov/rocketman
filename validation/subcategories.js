@@ -5,6 +5,7 @@ const addSubcategories = joi.object({
     amount: joi.number(),
     contact: joi.string().max(12).required(),
     address: joi.string().min(5).max(250).required(),
+    status: joi.string(),
     category_id: joi.number().required()
 });
 
@@ -14,6 +15,7 @@ const putSubCategories = joi.object({
     amount: joi.number(),
     contact: joi.string().max(12),
     address: joi.string().min(5).max(250),
+    status: joi.string(),
     category_id: joi.number()
 });
 
