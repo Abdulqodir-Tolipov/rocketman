@@ -1,0 +1,9 @@
+function access(req, res, next) {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader(
+		"Access-Control-Allow-Headers",
+		"Origin, Accept, Content-Type, Access-Control-Allow-Origin"
+	);
+	res.setHeader("Access-Control-Allow-Methods", "GET,POST, DELETE, PUT");
+}
+module.exports = access;
