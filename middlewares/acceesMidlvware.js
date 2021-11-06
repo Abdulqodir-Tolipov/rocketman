@@ -5,5 +5,6 @@ function access(req, res, next) {
 		"Origin, Accept, Content-Type, Access-Control-Allow-Origin"
 	);
 	res.setHeader("Access-Control-Allow-Methods", "GET,POST, DELETE, PUT");
+	next();
 }
 module.exports = access;
