@@ -16,7 +16,6 @@ const login = async (req, res) => {
     }
 
     const logged = await model.login(req.body);
-    console.log(logged);
     if (logged && logged.status != 'deleted') {
       const token = jwt.sign(logged.status);
       res.cookie('token', token);
