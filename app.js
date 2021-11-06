@@ -18,6 +18,7 @@ const app = express();
 
 app.use(access);
 app.use(express.json());
+app.use(express.urlencoded());
 app.use(cookie());
 app.use(validateCookies);
 app.use(adminRouter);
