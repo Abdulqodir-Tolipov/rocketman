@@ -2,7 +2,7 @@ const { verify } = require('../utils/jwt.js');
 
 function validateCookie(req, res, next) {
   try {
-    if (req.url == '/login') return next();
+    if (req.url == '/login' || req.method == 'GET') return next();
     console.log(req.cookies);
     if (!req.cookies.token) throw new Error('Token required');
     const isAdmin = verify(req.cookies.token);
