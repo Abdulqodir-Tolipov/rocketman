@@ -3,11 +3,10 @@ function access(req, res, next) {
   res.setHeader(
     'Access-Control-Allow-Headers',
     'Origin, Accept, Content-Type, Access-Control-Allow-Origin',
-    'token'
+    'token',
+    'Content-Type'
   );
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST, DELETE, PUT');
   next();
 }
 module.exports = access;
-
-
