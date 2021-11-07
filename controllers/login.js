@@ -19,7 +19,7 @@ const login = async (req, res) => {
     if (logged && logged.status != 'deleted') {
       const token = jwt.sign(logged.status);
       res.cookie('token', token);
-      // res.redirect('http://localhost:3000')
+      res.redirect('/')
 
       res.status(200).json({
         status: 200,
