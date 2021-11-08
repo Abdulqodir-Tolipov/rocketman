@@ -13,6 +13,7 @@ function validateCookie(req, res, next) {
     else if (front == 'admin' || front == 'superadmin') next();
     else throw new Error('Forbidden');
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       status: 500,
       message: error.message,
