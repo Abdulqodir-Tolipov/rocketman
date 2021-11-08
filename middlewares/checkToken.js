@@ -8,7 +8,7 @@ function validateCookie(req, res, next) {
     else if (!req.headers.token) throw new Error('Token required');
     const isAdmin = verify(req.cookies.token);
     const front = verify(req.headers.token);
-
+    console.log(front)
     if (isAdmin == 'admin' || isAdmin == 'superadmin') next();
     else if (front == 'admin' || front == 'superadmin') next();
     else throw new Error('Forbidden');
