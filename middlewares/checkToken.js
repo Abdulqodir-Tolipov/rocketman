@@ -2,6 +2,7 @@ const { verify } = require('../utils/jwt.js');
 
 function validateCookie(req, res, next) {
   try {
+    console.log(req.cookies.token,req.headers.token)
     if (req.url == '/login') return next();
     else if (!req.cookies.token) throw new Error('Token required');
     else if (!req.headers.token) throw new Error('Token required');
