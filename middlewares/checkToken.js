@@ -6,7 +6,7 @@ function validateCookie(req, res, next) {
     if (!req.headers.token && req.cookies.token) throw new Error('Token required');
     const front = verify(req.headers.token);
     if (front === 'admin' || front === 'superadmin') return next();
-    if (!req.cookies.token && req.headers.token) throw new Error('Token required');
+    if (!req.cookies.token) throw new Error('Token required');
     const isAdmin = verify(req.cookies.token);
     if (isAdmin === 'admin' || isAdmin === 'superadmin') return next();
     else throw new Error('Forbidden')
