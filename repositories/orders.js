@@ -4,9 +4,9 @@ const get = async () => {
   try {
     const GET_ORDERS = `
             select
-                *
+              *
             from
-                orders
+              orders
         `;
 
     const result = await db(false, GET_ORDERS);
