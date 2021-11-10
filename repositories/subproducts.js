@@ -121,7 +121,9 @@ const update = async ({
             ),
             status = (
                 case 
-                    when length($6)>1 then  $6
+                    when ($6='true' and o.status='disabled') then  'enabled'
+                    when ($6='true' and o.status='enabled')  then 'disabled'
+                    when ($6='true' and o.status='deleted')  then 'enabled'
                     else o.status
                 end
             ),
