@@ -3,15 +3,19 @@ const db = require('../utils/pg.js');
 const get = async ({ id }) => {
   try {
     const GET_DRIVER = `
-            select
-                *
-            from drivers
-            where status <> 'deleted'
-        `;
+      select
+        *
+      from
+       drivers
+      where status <> 'deleted'
+    `;
+
     const GET_BY_PARAMS = `
-        select * 
-        from drivers d
-        where d.id=$1 and d.status <> 'deleted'
+      select 
+        * 
+      from 
+        drivers d
+      where d.id = $1 and d.status <> 'deleted'
         
    `;
     if (id) {
@@ -103,8 +107,10 @@ const update = async ({
                 ),
                 status = (
                     case
-                        when length($7) > 1 then $7
-                        else o.status
+                      when ($7 = 'true' and o.status = 'enabled') then 'disabled'
+                      when ($7 = 'true' and o.status = 'disabled') then 'enabled'
+                      when ($7 = 'true' and o.status = 'deleted') then 'enabled'
+                      else o.status
                     end
                 )
             from old_data as o

@@ -84,7 +84,9 @@ const update = async ({ id, name, tg_name, shop, status }) => {
                 ),
                 status = (
                     case
-                        when length($5) > 1 then $5
+                        when ($5 = 'true' and o.status = 'enabled') then 'disabled'
+                        when ($5 = 'true' and o.status = 'disabled') then 'enabled'
+                        when ($5 = 'true' and o.status = 'deleted') then 'enabled'
                         else o.status
                     end
                 )
@@ -97,7 +99,7 @@ const update = async ({ id, name, tg_name, shop, status }) => {
       true,
       UPDATE_CATEGORY,
       id,
-      name,
+      name, 
       tg_name,
       shop,
       status
