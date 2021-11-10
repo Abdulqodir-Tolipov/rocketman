@@ -90,8 +90,10 @@ const update = async ({
                 ),
                 status = (
                     case
-                        when length($5) > 1 then $5
-                        else o.status
+                      when ($5 = 'true' and o.status = 'enabled') then 'disabled'
+                      when ($5 = 'true' and o.status = 'disabled') then 'enabled'
+                      when ($5 = 'true' and o.status = 'deleted') then 'enabled'
+                    else o.status
                     end
                 ),
                 sub_categories_id = (

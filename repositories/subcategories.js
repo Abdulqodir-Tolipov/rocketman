@@ -4,18 +4,28 @@ const get = async ({ param }) => {
   try {
     const GET_BY_PARAMS = `
       select
-        *
+        sc.id,
+        sc.name,
+        sc.amount,
+        sc.contact,
+        sc.address,
+        sc.status
       from
-        sub_categories
-      where id = $1 and status <> 'deleted'
+        sub_categories as sc
+      where sc.id = $1 and sc.status <> 'deleted'
     `;
 
     const GET_SUBCATEGORIES = `
-            select 
-              * 
-            from 
-              sub_categories
-            where status <> 'deleted'
+      select
+        sc.id,
+        sc.name,
+        sc.amount,
+        sc.contact,
+        sc.address,
+        sc.status
+      from 
+        sub_categories as sc
+      where status <> 'deleted'
         `;
     if (param) {
       const result = await db(true, GET_BY_PARAMS, param);
