@@ -24,7 +24,7 @@ const get = async ({ param }) => {
         (SELECT json_array_length(orde::json) from orders) orders
       from
         real_users u
-      join orders o on (o.orde -> 1 ->>'bot_user_id')::int = u.bot_user_id
+      left join orders o on (o.orde -> 1 ->>'bot_user_id')::int = u.bot_user_id
       group by u.user_id
       ;
 `;
