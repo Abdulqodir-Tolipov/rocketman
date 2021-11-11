@@ -4,13 +4,20 @@ const get = async ({ id }) => {
   try {
     const GET_CATEGORY = `
         select
-            * 
+          id,
+          name,
+          amount,
+          status
         from    
-            products
+          products
         where status <> 'deleted'
     `;
     const GET_BY_PARAMS = `
-        select * 
+        select
+          id,
+          name,
+          amount,
+          status 
         from products s
         where s.id=$1 and s.status <> 'deleted'
    `;

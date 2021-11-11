@@ -3,10 +3,11 @@ const db = require('../utils/pg.js');
 const get = async () => {
   try {
     const GET_ORDERS = `
-            select
-              *
-            from
-              orders
+        select
+          *
+        from
+          orders o
+        ;
         `;
 
     const result = await db(false, GET_ORDERS);

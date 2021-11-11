@@ -4,23 +4,23 @@ const get = async ({ param }) => {
   try {
     const GET_BY_PARAMS = `
       select 
-        c.id,
-        c.name,
-        c.shop,
-        c.status
+        id,
+        name,
+        shop,
+        status
       from
-        categories as c
-      where c.id = $1 and c.status <> 'deleted'
+        categories
+      where id = $1 and status <> 'deleted'
     `;
 
     const GET_CATEGORY = `
       select
-        c.id,
-        c.name,
-        c.shop,
-        c.status
+        id,
+        name,
+        shop,
+        status
       from    
-        categories as c
+        categories
       where status <> 'deleted'
     `;
 
