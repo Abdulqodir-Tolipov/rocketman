@@ -21,14 +21,14 @@ const get = async ({ param }) => {
         status
       from    
         categories
-      where status <> 'deleted' and category_id = $1
+      where status <> 'deleted'
     `;
 
     if (param) {
       const result = await db(true, GET_BY_PARAMS, param);
       return result;
     } else {
-      const result = await db(false, GET_CATEGORY, category_id);
+      const result = await db(false, GET_CATEGORY);
       return result;
     }
   } catch (error) {
