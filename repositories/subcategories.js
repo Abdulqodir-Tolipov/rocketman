@@ -4,27 +4,27 @@ const get = async ({ param }) => {
   try {
     const GET_BY_PARAMS = `
       select
-        sc.id,
-        sc.name,
-        sc.amount,
-        sc.contact,
-        sc.address,
-        sc.status
+        id,
+        name,
+        amount,
+        contact,
+        address,
+        status
       from
-        sub_categories as sc
-      where sc.id = $1 and sc.status <> 'deleted'
+        sub_categories
+      where id = $1 and status <> 'deleted'
     `;
 
     const GET_SUBCATEGORIES = `
       select
-        sc.id,
-        sc.name,
-        sc.amount,
-        sc.contact,
-        sc.address,
-        sc.status
+        id,
+        name,
+        amount,
+        contact,
+        address,
+        status
       from 
-        sub_categories as sc
+        sub_categories
       where status <> 'deleted'
         `;
     if (param) {

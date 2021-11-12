@@ -1,6 +1,6 @@
 const db = require('../utils/pg.js');
 
-const get = async ({ param }) => {
+const get = async ({ param, id }) => {
   try {
     const GET_BY_PARAMS = `
       select 
@@ -11,6 +11,20 @@ const get = async ({ param }) => {
       from
         categories
       where id = $1 and status <> 'deleted'
+    `;
+
+    const GET_BY_QUERY = `
+      select
+        sc.id,
+        sc.name,
+        sc.amount,
+        sc.contact,
+        sc.address,
+        sc.status
+      from    
+        categories c
+      join sub_categories sc on c.id = sc.id
+      where sc.id = $1 and sc.status <> 'deleted'
     `;
 
     const GET_CATEGORY = `
@@ -26,6 +40,9 @@ const get = async ({ param }) => {
 
     if (param) {
       const result = await db(true, GET_BY_PARAMS, param);
+      return result;
+    } else if (id) {
+      const result = await db(true, GET_BY_QUERY, id);
       return result;
     } else {
       const result = await db(false, GET_CATEGORY);
@@ -99,7 +116,7 @@ const update = async ({ id, name, tg_name, shop, status }) => {
       true,
       UPDATE_CATEGORY,
       id,
-      name, 
+      name,
       tg_name,
       shop,
       status
