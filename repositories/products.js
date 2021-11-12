@@ -1,29 +1,48 @@
 const db = require('../utils/pg.js');
 
-const get = async ({ id }) => {
+const get = async ({ param }, { id }) => {
   try {
-    const GET_CATEGORY = `
-        select
-          id,
-          name,
-          amount,
-          status
-        from    
-          products
-        where status <> 'deleted'
-    `;
     const GET_BY_PARAMS = `
-        select
-          id,
-          name,
-          amount,
-          status 
-        from products s
-        where s.id=$1 and s.status <> 'deleted'
+      select
+        id,
+        name,
+        amount,
+        status 
+      from products s
+      where s.id=$1 and s.status <> 'deleted'
    `;
 
-    if (id) {
-      const result = await db(true, GET_BY_PARAMS, id);
+    const GET_BY_QUERY = `
+      select
+        sp.id,
+        sp.name,
+        sp.info,
+        sp.price,
+        sp.img_link,
+        sp.status,
+        sp.product_id
+      from    
+        products p
+      join sub_products sp on p.id = sp.id
+      where sp.id = $1 and sp.status <> 'deleted'
+    `;
+
+    const GET_CATEGORY = `
+      select
+        id,
+        name,
+        amount,
+        status
+      from    
+        products
+      where status <> 'deleted'
+    `;
+
+    if (param) {
+      const result = await db(true, GET_BY_PARAMS, param);
+      return result;
+    } else if (id) {
+      const result = await db(true, GET_BY_QUERY, id);
       return result;
     } else {
       const result = await db(false, GET_CATEGORY);

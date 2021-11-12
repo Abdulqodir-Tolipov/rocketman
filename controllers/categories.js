@@ -2,7 +2,7 @@ const model = require('../repositories/categories.js');
 const validations = require('../validation/categories.js');
 
 const GET = async (req, res) => {
-  const category = await model.get({...req.params, ...req.query});
+  const category = await model.get({ ...req.params, ...req.query });
   if (category) {
     res.status(200).json(category);
   } else {

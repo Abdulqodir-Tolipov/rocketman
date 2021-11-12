@@ -3,4 +3,4 @@ const controller = require('../../controllers/orders.js');
 
 router.route('/orders').get(controller.GET);
 
-module.exports = router
+module.exports = router;
