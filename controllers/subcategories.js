@@ -2,7 +2,7 @@ const model = require('../repositories/subcategories.js');
 const validations = require('../validation/subcategories.js');
 
 const GET = async (req, res) => {
-  const subcategories = await model.get(req.params);
+  const subcategories = await model.get(req.params, req.query);
   if (subcategories) {
     res.status(200).json(subcategories);
   } else {
