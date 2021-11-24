@@ -1,31 +1,29 @@
 const db = require('../utils/pg.js');
 
-const get = async ({id}) => {
+const get = async ({ id }) => {
   try {
     const GET_PRODUCTS = `
-            select
-                * 
-            from    
-                sub_products
-            where status <> 'deleted'
-          
-        `;
+      select
+        * 
+      from    
+        sub_products
+      where status <> 'deleted'  
+    `;
     const GET_BY_PARAMS = `
-         select * 
-         from sub_products s
-         where s.id=$1 and s.status <> 'deleted'
-         
-    `
-  
-    if(id){
-      const result = await db(true, GET_BY_PARAMS,id)
-      return result
-    }else{
-      const result = await db(false, GET_PRODUCTS)
+      select 
+        * 
+      from 
+        sub_products s
+      where s.id=$1 and s.status <> 'deleted' 
+    `;
+
+    if (id) {
+      const result = await db(true, GET_BY_PARAMS, id);
+      return result;
+    } else {
+      const result = await db(false, GET_PRODUCTS);
       return result;
     }
-  
-    
   } catch (error) {
     console.error(error);
   }
@@ -87,6 +85,7 @@ const update = async ({
     const UPDATE_SUB_PRODUCT = `
         with old_data as (
             select
+                id,
                 name,
                 info,
                 price,
@@ -123,13 +122,15 @@ const update = async ({
             ),
             status = (
                 case 
-                    when length($6)>1 then  $6
+                    when ($6='true' and o.status='disabled') then  'enabled'
+                    when ($6='true' and o.status='enabled')  then 'disabled'
+                    when ($6='true' and o.status='deleted')  then 'enabled'
                     else o.status
                 end
             ),
             product_id = (
                 case 
-                    when ($7)>1 then $7
+                    when ($7)>0 then $7
                     else o.product_id
                 end
             )

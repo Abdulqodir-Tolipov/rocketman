@@ -1,7 +1,6 @@
-const router = require("express").Router()
-const controller = require("../../controllers/company.js")
+const router = require('express').Router();
+const controller = require('../../controllers/company.js');
 
-router.route("/company")
-    .put(controller.UPDATE)
+router.route('/company').put(controller.UPDATE);
 
-module.exports = router
+module.exports = router;

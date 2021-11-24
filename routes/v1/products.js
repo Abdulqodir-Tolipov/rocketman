@@ -7,5 +7,5 @@ router
   .post(controller.POST)
   .put(controller.UPDATE)
   .delete(controller.DELETE);
-
+router.route('/products/:param').get(controller.GET);
 module.exports = router;

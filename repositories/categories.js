@@ -1,18 +1,38 @@
 const db = require('../utils/pg.js');
 
-const get = async ({ param }) => {
+const get = async ({ param, id }) => {
   try {
     const GET_BY_PARAMS = `
       select 
-        * 
+        id,
+        name,
+        shop,
+        status
       from
         categories
       where id = $1 and status <> 'deleted'
     `;
 
+    const GET_BY_QUERY = `
+      select
+        sc.id,
+        sc.name,
+        sc.amount,
+        sc.contact,
+        sc.address,
+        sc.status
+      from    
+        categories c
+      join sub_categories sc on c.id = sc.id
+      where sc.id = $1 and sc.status <> 'deleted'
+    `;
+
     const GET_CATEGORY = `
       select
-        * 
+        id,
+        name,
+        shop,
+        status
       from    
         categories
       where status <> 'deleted'
@@ -20,6 +40,9 @@ const get = async ({ param }) => {
 
     if (param) {
       const result = await db(true, GET_BY_PARAMS, param);
+      return result;
+    } else if (id) {
+      const result = await db(true, GET_BY_QUERY, id);
       return result;
     } else {
       const result = await db(false, GET_CATEGORY);
@@ -78,7 +101,9 @@ const update = async ({ id, name, tg_name, shop, status }) => {
                 ),
                 status = (
                     case
-                        when length($5) > 1 then $5
+                        when ($5 = 'true' and o.status = 'enabled') then 'disabled'
+                        when ($5 = 'true' and o.status = 'disabled') then 'enabled'
+                        when ($5 = 'true' and o.status = 'deleted') then 'enabled'
                         else o.status
                     end
                 )

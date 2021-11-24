@@ -8,8 +8,6 @@ router
   .put(controller.UPDATE)
   .delete(controller.DELETE);
 
+router.route('/subproducts/:id').get(controller.GET);
 
-router.route('/subproducts/:id')
-      .get(controller.GET)
-      
 module.exports = router;

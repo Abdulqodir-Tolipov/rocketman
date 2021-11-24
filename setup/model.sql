@@ -104,14 +104,14 @@ create table if not exists company (
 --     user_id int not null references users(id)
 -- );
 
--- create table if not exists orders (
---     id serial primary key,
---     created_at timestamp default current_timestamp,
---     count int not null default 1,
---     user_id int not null references users(id) on delete cascade,
---     driver_id int not null references drivers(id) on delete cascade,
---     sub_product_id int not null references sub_products(id) on delete cascade,
---     payment_id int not null references payment(id) on delete cascade,
---     status varchar(120) not null default 'no order'
--- );
+create table if not exists orders (
+    id serial primary key,
+    created_at timestamp default current_timestamp,
+    count int not null default 1,
+    user_id int not null references users(id) on delete cascade,
+    driver_id int not null references drivers(id) on delete cascade,
+    sub_product_id int not null references sub_products(id) on delete cascade,
+    payment_id int not null references payment(id) on delete cascade,
+    status varchar(120) not null default 'no order'
+);
 

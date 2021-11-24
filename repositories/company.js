@@ -1,8 +1,14 @@
-const db = require("../utils/pg.js")
+const db = require('../utils/pg.js');
 
-const update = async({id, name, media_link, delivery_price, katalog_link, contact}) => {
-    try {
-        const PUT_SUBCATEGORIES = `
+const update = async ({
+  name,
+  media_link,
+  delivery_price,
+  katalog_link,
+  contact,
+}) => {
+  try {
+    const PUT_SUBCATEGORIES = `
             with old_data as (
                 select
                     id,
@@ -44,13 +50,21 @@ const update = async({id, name, media_link, delivery_price, katalog_link, contac
                 where comp.id = 1
                 returning comp.* 
         `;
-        const result = await db(true, PUT_SUBCATEGORIES, name, media_link, delivery_price, katalog_link, contact)
-        return result
-    } catch (error) {
-        throw error
-    }
-}
+    const result = await db(
+      true,
+      PUT_SUBCATEGORIES,
+      name,
+      media_link,
+      delivery_price,
+      katalog_link,
+      contact
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
 
 module.exports = {
-    update
-}
+  update,
+};

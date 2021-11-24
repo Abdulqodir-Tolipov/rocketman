@@ -8,4 +8,6 @@ router
   .put(controller.UPDATE)
   .delete(controller.DELETE);
 
+router.route('/admin/:param').get(controller.GET);
+
 module.exports = router;

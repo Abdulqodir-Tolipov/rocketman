@@ -4,13 +4,13 @@ const jwt = require('../utils/jwt.js');
 
 const GET = async (req, res) => {
   try {
-    const admins = await model.get();
-    if (admins) {
-      const isAdmin = jwt.verify(req.cookies.token);
-      if (isAdmin == 'superadmin') {
+    const admins = await model.get(req.params);
+    const isAdmin = jwt.verify(req.cookies.token);
+    if (isAdmin == 'superadmin') {
+      if (admins) {
         res.status(200).json(admins);
-      } else throw new Error('You are not superadmin!');
-    }
+      } else throw new Error('Admin is not found!');
+    } else throw new Error('You are not superadmin!');
   } catch (error) {
     res.status(400).json({
       status: 400,
